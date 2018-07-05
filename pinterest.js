@@ -25,7 +25,7 @@ var Pinterest = {
      *  param [Object]   data     - {board, note, link, image_url}
      *  param [Function] callback - function started when complete
      */
-    createPin: function(data, callback) {
+    deletePin: function(data, callback) {
         PDK.request('/pins/', 'DELETE', data, callback);
     },
     /*

@@ -1,24 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
-// Pinterest JavaScript SDK
-<script>
-    window.pAsyncInit = function() {
-        PDK.init({
-            appId: "4976224077197881480",
-            cookie: true
-        });
-    };
-
-    (function(d, s, id){
-        var js, pjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//assets.pinterest.com/sdk/sdk.js";
-        pjs.parentNode.insertBefore(js, pjs);
-    }(document, 'script', 'pinterest-jssdk'));
-</script>
-
 <head>
   <title>Pinterest Delete Diplicates</title>
 </head>
+<body>
+    <!-- Using the SDK -->
+    <script>
+        // Ask user for which board they want to search
+        var board = prompt("Which Pinterest board would you like to search?");
+
+        // Return id, description, link and image of the pin
+        var params = {
+            fields: 'id,note,link,image'
+        };
+        // SDK let us know if there's more information & takes it
+        var pins = [];
+        PDK.request('/boards/Techies/pins/', function (response) { // TEMP BOARD : Techies
+          if (!response || response.error) {
+            alert('Error occurred');
+          } else {
+            pins = pins.concat(response.data);
+            if (response.hasNext) {
+              response.next(); // this will recursively go to this same callback
+            }
+          }
+        });
+    </script>
+    
+    <!-- Pinterest JavaScript SDK -->
+    <script>
+        window.pAsyncInit = function() {
+            PDK.init({
+                appId: "4976224077197881480",
+                cookie: true
+            });
+        };
+
+        (function(d, s, id){
+            var js, pjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//assets.pinterest.com/sdk/sdk.js";
+            pjs.parentNode.insertBefore(js, pjs);
+        }(document, 'script', 'pinterest-jssdk'));
+    </script>
+  </body>
+
+</html>

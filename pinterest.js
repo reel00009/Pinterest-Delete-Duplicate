@@ -1,4 +1,4 @@
-var Const = require('const');
+var Const = require('./const');
 
 //  Initialize once with app id
 PDK.init({ appId: Const.PIN_APP, cookie: true });

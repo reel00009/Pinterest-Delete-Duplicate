@@ -1,11 +1,24 @@
-//  Initialize once with app id
+// Initialize once with app id
 PDK.init({ appId: '4976224077197881480', cookie: true });
 
 // Pinterest log in
 function logIn() {
-  PDK.login(function(response){
-    console.log(response);
-  })
+  PDK.login(function(response) {
+    console.log(response); //TEST to see response status
+    // Display the status of their login
+    if (response.status === 'connected') {
+      document.getElementById('show').innerHTML = 'You are connected! We will now be deleting duplicate pins.';
+      // Look through the boards
+      myBoards(response);
+      // Look for duplicate pins & delete
+      getPins(data, response);
+      findDupPins(data);
+    } else if (response.status === 'not_authorized') {
+      document.getElementById('show').innerHTML = 'You are not connected. Please try again.';
+    } else {
+      document.getElementById('show').innerHTML = 'You are logged into any Pinterest account.';
+    }
+  });
 }
 
 // Determine auth state of the user
@@ -14,12 +27,12 @@ function loggedIn() {
 }
 
 // Pinterest log out
-function logOut(){
+function logOut() {
   PDK.logout();
 }
 
 // Return's the  authorized user’s profile, boards and pins
-function userInfo(){
+function userInfo() {
   PDK.me();
 }
 
@@ -35,7 +48,6 @@ var params = {
 
 // Retrieve pins on the board
 var pins = [];
-var pinCount = 0;
 function getPins(data, callback) {
   PDK.request('/boards/Techies/pins', 'GET', function (response) { // TEMP BOARD : Techies
     if (!response || response.error) {
@@ -43,28 +55,28 @@ function getPins(data, callback) {
     } else {
       pins = pins.concat(response.data);
       console.log(pins); // TEST to see if pins are showing up
-      pinCount++;
       if (response.hasNext) {
         response.next(); // this will recursively go to this same callback
       }
     }
   });
-}
-
-// Find duplicate pins
-function findDupPins(data) {
-  for(int i = 0; i < pinCount; i++){
-    for(int j = 0; j < pinCount; j++){
-      if(j != i) {
-        if(pin[i]==pin[j]){
-          deletePin(pin[i], function(response));
-        }
-      }
-    }
-  }
+  return pins;
 }
 
 // Deleting a pin
 function deletePin(data, callback) {
   PDK.request('/pins/', 'DELETE', data, callback);
+}
+
+// Find duplicate pins
+function findDupPins(data) {
+  for (int i = 0; i < pins.length; i++) {
+    for (int j = 0; j < pins.length; j++) {
+      if (j != i) {
+        if (pins[i] == pins[j]) {
+          deletePin(pins[i], function(response));
+        }
+      }
+    }
+  }
 }

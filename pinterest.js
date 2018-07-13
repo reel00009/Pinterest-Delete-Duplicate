@@ -2,8 +2,8 @@
 PDK.init({ appId: '4976224077197881480', cookie: true });
 
 // Pinterest log in
-function logIn() {
-  PDK.login(function(response) {
+function login() {
+  PDK.login({ scope : 'write_public, read_public' }, function(response) {
     console.log(response); //TEST to see response status
     // Display the status of their login
     if (response.status === 'connected') {

@@ -7,6 +7,7 @@
 </head>
 <body class="main">
   <script src="pinterest.js">
+    function pinterest() {
       // Initialize Pinterest JavaScript SDK
       window.pAsyncInit = function() {
           PDK.init({
@@ -14,6 +15,7 @@
               cookie: true
           });
       };
+
       (function(d, s, id){
           var js, pjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) {return;}
@@ -22,11 +24,42 @@
           pjs.parentNode.insertBefore(js, pjs);
       }(document, 'script', 'pinterest-jssdk'));
 
+      // Function to log into user's Pinterest
+      // function login() {
+        PDK.login({ scope : 'write_public, read_public' }, function(response) {
+          console.log(response); //TEST TO SEE STATUS
+          // Display the status of their login
+          if (response.error || !response) {
+            document.getElementById('show').innerHTML = 'You are not connected. Please try again.';
+          } else {
+            document.getElementById('show').innerHTML = 'You are connected! We will now be deleting duplicate pins.';
+            // Get board information
+            var pins = [];
+            var board_id='Techies'; // TEMP BOARD
+            PDK.request('/boards/'+board_id+'/pins/', function (response) {
+                if (!response || response.error) {
+                alert('Error occurred');
+                } else {
+                pins = pins.concat(response.data);
+                    if (response.hasNext) {
+                    response.next();
+                    }
+                }
+            });
+            document.getElementById('show').innerHTML = pins;
+            // Look for duplicate pins & delete
+            // getPins(data, response);
+            // findDupPins(data);
+          }
+        });
+      }
+      
+
       // Confirmation message that pins are deleted
       // alert("Pins are now deleted. Check your Pinterest and keep up the pinning!");
   </script>
-
-  <button onclick="logIn();" class="btn">Log Into Pinterest</button>
+  <center><div id="show"></div></center>
+  <button onclick="pinterest()" class="btn">Log Into Pinterest</button>
 
 </body>
 

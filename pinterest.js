@@ -18,8 +18,8 @@ function deletePin(data, callback) {
 
 // Find duplicate pins
 function findDupPins(data) {
-  for (var i = 0; i < pins.length; i++) {
-    for (var j = 0; j < pins.length; j++) {
+  for (var i = 0; i < data.length; i++) {
+    for (var j = 0; j < data.length; j++) {
       if (j != i) {
         if (pins[i] == pins[j]) {
           deletePin(pins[i], function(response){});
@@ -32,7 +32,7 @@ function findDupPins(data) {
 function pinterest() {
   // Function to log into user's Pinterest
   PDK.login({ scope : 'write_public, read_public' }, function(response) {
-    console.log(response);  // TEST TO SEE STATUS
+    console.log(response);  // TEST 
 
     // Display the status of their login
     if (response.error || !response) {
@@ -42,13 +42,17 @@ function pinterest() {
       var user_id;
       PDK.request('/v1/me/', 'GET', { fields: 'username' }, function(response) { // Get user information
           user_id = response;
+          console.log(response); // TEST
       });
       user_id = 'tiananguyen99'; // TEMP USERNAME
       // Ask user for which board user wants to search
       var board_id = prompt("Which board do you want to search?");
       board_id='cooking-sessions'; // TEMP BOARD
       var pins = [];
+      console.log("Test 3"); // TEST
       PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small]' }, function (response) {  // Get board information
+          console.log(response); // TEST
+          console.log("Test 4"); // TEST
           if (!response || response.error) {
             alert('Error occurred');
           } else {
@@ -64,7 +68,15 @@ function pinterest() {
       }
 
       // Look for duplicate pins & delete
-      findDupPins(pins);
+      // findDupPins(pins);
+      for (var i = 0; i < pins.length; i++) {
+        for (var j = 0; j < pins.length; j++) {
+          if (j != i) {
+            if (pins[i] == pins[j]) {
+              deletePin(pins[i], function(response){});
+            }
+          }
+        }
     }
   });
 }

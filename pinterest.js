@@ -70,13 +70,45 @@ function deletePin(data, callback) {
 
 // Find duplicate pins
 function findDupPins(data) {
-  for (int i = 0; i < pins.length; i++) {
-    for (int j = 0; j < pins.length; j++) {
+  for (var i = 0; i < pins.length; i++) {
+    for (var j = 0; j < pins.length; j++) {
       if (j != i) {
         if (pins[i] == pins[j]) {
-          deletePin(pins[i], function(response));
+          deletePin(pins[i], function(response){});
         }
       }
     }
   }
+}
+
+
+function pinterest() {
+  // Function to log into user's Pinterest
+  PDK.login({ scope : 'write_public, read_public' }, function(response) {
+    console.log(response);  // TEST TO SEE STATUS
+    
+    // Display the status of their login
+    if (response.error || !response) {
+      document.getElementById('show').innerHTML = 'You are not connected. Please try again.';
+    } else {
+      document.getElementById('show').innerHTML = 'You are connected! We will now be deleting duplicate pins.';
+      var pins = [];
+      var board_id='Techies'; // TEMP BOARD
+      PDK.request('/boards/'+board_id+'/pins/', function (response) {  // Get board information
+          if (!response || response.error) {
+            alert('Error occurred');
+          } else {
+            pins = pins.concat(response.data);
+            if (response.hasNext) {
+              response.next();
+            }
+          }
+      });
+      document.getElementById('show').innerHTML = pins;
+      
+      // Look for duplicate pins & delete
+      // getPins(data, response);
+      // findDupPins(data);
+    }
+  });
 }

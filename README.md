@@ -12,8 +12,8 @@ Here are the methods being used in this application:
 
 |     Code      |    Response   |  Description  |
 | ------------- | ------------- | ------------- |
-| PDK.login({ scope : 'write_public, read_public' })  | { accessToken }  |  Opens an oauth login popup |
-| PDK.logout()  | None | Deletes the session |
-| PDK.request('/pins/', 'DELETE', data, callback) | None | Deletes the pin object
-| PDK.me( { fields: 'username' })  | { data: username} | Gets the current user's username |
-| PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small]' }) |  { data: note,image[small] } | Gets the current user's board's pins |
+| `PDK.login({ scope : 'write_public, read_public' })`  | { accessToken }  |  Opens an oauth login popup |
+| `PDK.logout()`  |  none | Deletes the session |
+| `PDK.request('/pins/', 'DELETE', data, callback)` |  none | Deletes the pin object
+| `PDK.me( { fields: 'username' })`  | { data: username} | Gets the current user's username |
+| `PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small]' })` |  { data: note,image[small] } | Gets the current user's board's pins |

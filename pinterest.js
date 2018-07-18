@@ -43,6 +43,7 @@ function pinterest() {
       PDK.me({ fields: 'username' }, function(response) { // Get user information
           user_id = response;
           console.log(response); // TEST
+          console.log("Test 2"); // TEST
       });
       user_id = 'tiananguyen99'; // TEST USERNAME
       // Ask user for which board user wants to search
@@ -61,11 +62,13 @@ function pinterest() {
               response.next();
             }
           }
+          document.getElementById('show').innerHTML = response; // Display pins
       });
       // Display pins
-      for(var i = 0; i< pins.length; i++) {
+      document.getElementById('show').innerHTML = pins;
+      /* for(var i = 0; i< pins.length; i++) {
         document.getElementById('show').innerHTML = pins[i];
-      }
+      } */
 
       // Look for duplicate pins & delete
       // findDupPins(pins);

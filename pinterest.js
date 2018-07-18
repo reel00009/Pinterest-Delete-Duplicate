@@ -53,20 +53,20 @@ function pinterest() {
       console.log("Test 3"); // TEST
       PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small]' }, function (response) {  // Get board information
           console.log(response); // TEST
-          console.log("Test 5"); // TEST
+          console.log("Test 4"); // TEST
           if (!response || response.error) {
             alert('Error occurred');
           } else {
             pins = pins.concat(response.data);
+            document.getElementById('show').innerHTML = response; // Display pins
             if (response.hasNext) {
               response.next();
             }
           }
-          document.getElementById('show').innerHTML = response; // Display pins
       });
-      // Display pins
+      /* Display pins
       document.getElementById('show').innerHTML = pins;
-      /* for(var i = 0; i< pins.length; i++) {
+      for(var i = 0; i< pins.length; i++) {
         document.getElementById('show').innerHTML = pins[i];
       } */
 

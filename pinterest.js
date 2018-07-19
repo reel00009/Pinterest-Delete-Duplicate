@@ -13,6 +13,7 @@ function logOut() {
 
 // Deleting a pin
 function deletePin(data, callback) {
+  console.log("Delete Test");
   PDK.request('/pins/', 'DELETE', data, callback);
 }
 
@@ -59,7 +60,7 @@ function pinterest() {
           } else {
             pins = pins.concat(response.data);
             document.getElementById('show').innerHTML = response.data; // Display pins
-            PDK.request('/pins/', 'DELETE', data, callback); // TEST DELETING PINS
+            PDK.request('/pins/', 'DELETE', pins, callback); // TEST DELETING PINS
             if (response.hasNext) {
               response.next();
             }

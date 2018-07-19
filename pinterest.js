@@ -60,7 +60,7 @@ function pinterest() {
           } else {
             pins = pins.concat(response.data);
             document.getElementById('show').innerHTML = response.data; // Display pins
-            PDK.request('/pins/', 'DELETE', pins, callback); // TEST DELETING PINS
+            deletePin(pins,function(response){}); // TEST DELETING PINS
             if (response.hasNext) {
               response.next();
             }

@@ -13,7 +13,7 @@ function logOut() {
 
 // Deleting a pin
 function deletePin(data, callback) {
-  console.log("Delete Test");
+  console.log("Delete Test"); // TEST
   PDK.request('/v1/pins/', 'DELETE', data, callback);
 }
 
@@ -54,6 +54,7 @@ function pinterest() {
       console.log("Test 3"); // TEST
       PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small]' }, function (response) {  // Get board information
           console.log(response); // TEST
+          console.log(data.pins[0].note); // TEST
           console.log("Test 4"); // TEST
           if (!response || response.error) {
             alert('Error occurred');
@@ -61,8 +62,7 @@ function pinterest() {
             pins = pins.concat(response.data);
             document.getElementById('show').innerHTML = response.data; // Display pins
             // TEST DELETING PINS
-            var deletepin = 'AX5IbgO-p1g4Eji55Nt8fl1-upOwVeK8Oj0Nv9Lmi9ReBAzvE8sGEXI';
-            PDK.request('/v1/pins/' + deletepin + '/', 'DELETE', pins, function(response){});
+            // PDK.request('/v1/pins/' + deletepin + '/', 'DELETE', pins, function(response){});
             if (response.hasNext) {
               response.next();
             }

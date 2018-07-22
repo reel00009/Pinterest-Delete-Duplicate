@@ -46,10 +46,11 @@ function pinterest() {
       board_id='test'; // TEST BOARD
       var pins = [];
       console.log("Test 3"); // TEST
-      PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small]' }, function (response) {  // Get board information
-          console.log(response); // TEST
-          console.log(response.data[0].note); // TEST
-          console.log("Test 4"); // TEST
+      PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'id,note,image[small]' }, function (response) {  // Get board information
+          // TEST
+          console.log(response);
+          console.log(response.data[0].id);
+          console.log("Test 4");
 
           // Look for duplicate pins
           for (var i = 0; i < response.data.length; i++) {
@@ -60,13 +61,12 @@ function pinterest() {
             }
           }
 
+          // Get next pins
           if (!response || response.error) {
             alert('Error occurred');
           } else {
             pins = pins.concat(response.data);
-            document.getElementById('show').innerHTML = response.data; // Display pins
-            // TEST DELETING PINS
-            // PDK.request('/v1/pins/' + deletepin + '/', 'DELETE', pins, function(response){});
+            document.getElementById('show').innerHTML = response.data[0].image; // Display pins
             if (response.hasNext) {
               response.next();
             }

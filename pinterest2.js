@@ -113,3 +113,9 @@ function getPins(data, callback) {
   });
   return pins;
 }
+
+// Deleting a pin
+function deletePin(data, callback) {
+  console.log("Delete Test"); // TEST
+  PDK.request('/v1/pins/', 'DELETE', data, callback);
+}

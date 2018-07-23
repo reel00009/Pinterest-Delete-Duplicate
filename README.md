@@ -1,10 +1,12 @@
 # Pinterest-Delete-Duplicate
 An application that deletes duplicate pins on Pinterest
 
+Try out the Pinterest Delete Duplicate application [here](https://tiananguyen.github.io/pinterest/main.html).
+
 ## Application Process
 This application will use the Pinterest developer API and Pinterest JavaScript SDK to:
-  1. Look through a user's Pinterest boards
-  2. Find duplicate pins in each board
+  1. Look through a user's Pinterest board
+  2. Find duplicate pins in the board requested
   3. Delete the duplicate pins to ensure each pin on the board is unique
 
 ## Application Functions
@@ -12,8 +14,8 @@ Here are the methods being used in this application:
 
 |     Code      |    Response   |  Description  |
 | ------------- | ------------- | ------------- |
-| `PDK.login({ scope : 'write_public, read_public' })`  | { accessToken }  |  Opens an oauth login popup |
+| `PDK.login({ scope : 'write_public, read_public' })`  |  {accessToken}  |  Opens an oauth login popup |
 | `PDK.logout()`  |  none | Deletes the session |
 | `PDK.request('/pins/', 'DELETE', data, callback)` |  none | Deletes the pin object
-| `PDK.me( { fields: 'username' })`  | { data: username} | Gets the current user's username |
-| `PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small]' })` |  { data: note,image[small] } | Gets the current user's board's pins |
+| `PDK.me({ fields: 'username' })`  | {data: user url, user id, username} | Gets the current user's username |
+| `PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', {fields: 'note,image[small]'})` |  {data: id, note, image[small]} | Gets the current user's board's pins |

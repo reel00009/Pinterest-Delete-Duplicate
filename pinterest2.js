@@ -119,3 +119,16 @@ function deletePin(data, callback) {
   console.log("Delete Test"); // TEST
   PDK.request('/v1/pins/', 'DELETE', data, callback);
 }
+
+// Find duplicate pins
+function findDupPins(data) {
+  for (var i = 0; i < data.length; i++) {
+    for (var j = 0; j < data.length; j++) {
+      if (j != i) {
+        if (pins[i] == pins[j]) {
+          deletePin(pins[i], function(response){});
+        }
+      }
+    }
+  }
+}

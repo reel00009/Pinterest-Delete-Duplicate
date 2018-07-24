@@ -45,6 +45,7 @@ function pinterest() {
             for (var j = 0; j < response.data.length; j++) {
               if ((j != i) && (response.data[j].note == response.data[i].note)) {
                   PDK.request('/v1/pins/' + response.data[j].id + '/', 'DELETE', response.data, function(response){});
+                  pinsDelete = pinsDelete.concat(response.data[j]);
               }
             }
           }
@@ -54,8 +55,8 @@ function pinterest() {
             alert('Error occurred');
           } else {
             pins = pins.concat(response.data);
-            pins = document.getElementById('showPins');
-            document.getElementById('show').innerHTML = response.data[0].image; // Display pins
+            pinsDelete = document.getElementById('showPins');
+            document.getElementById('show').innerHTML = pinsDelete; // Display pins
             if (response.hasNext) {
               response.next();
             }

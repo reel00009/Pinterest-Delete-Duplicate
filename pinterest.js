@@ -44,8 +44,9 @@ function pinterest() {
           for (var i = 0; i < response.data.length; i++) {
             for (var j = 0; j < response.data.length; j++) {
               if ((j != i) && (response.data[j].note == response.data[i].note)) {
-                document.getElementById("display").href = response.data[j].url; // Display pins
-                pinsDelete = pinsDelete.concat(response.data[j]);
+                console.log(response.data[j].url); // TEST
+                var newURL = response.data[j].url;
+                document.getElementById("display").href = newURL;                pinsDelete = pinsDelete.concat(response.data[j]);
                 PDK.request('/v1/pins/' + response.data[j].id + '/', 'DELETE', response.data, function(response){});
               }
             }

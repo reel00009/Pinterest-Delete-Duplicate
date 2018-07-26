@@ -47,8 +47,8 @@ function pinterest() {
                 console.log(response.data[i].url); // TEST
 
                 //Display pins
-                var newURL = "\"" + response.data[i].url + "\"";
-                document.getElementById("display").href = newURL; 
+                // var newURL = "\"" + response.data[i].url + "\"";
+                document.getElementById("display").href = response.data[i].url;
 
                 // Delete Duplicates
                 pinsDelete = pinsDelete.concat(response.data[j]);
@@ -69,7 +69,7 @@ function pinterest() {
             }
           }
           // Display board
-          var newBoard = "\"" + "https://www.pinterest.com/" + user_id + "/" + board_id + "/" + "\"";
+          var newBoard = "https://www.pinterest.com/" + user_id + "/" + board_id + "/";
           document.getElementById("board").href = newBoard;
       });
     }

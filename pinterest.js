@@ -45,8 +45,13 @@ function pinterest() {
             for (var j = 0; j < response.data.length; j++) {
               if ((j != i) && (response.data[j].note == response.data[i].note)) {
                 console.log(response.data[i].url); // TEST
+
+                //Display pins
                 var newURL = "\"" + response.data[i].url + "\"";
-                document.getElementById("display").href = newURL;                pinsDelete = pinsDelete.concat(response.data[j]);
+                document.getElementById("display").href = newURL; 
+
+                // Delete Duplicates
+                pinsDelete = pinsDelete.concat(response.data[j]);
                 PDK.request('/v1/pins/' + response.data[j].id + '/', 'DELETE', response.data, function(response){});
               }
             }
@@ -56,13 +61,16 @@ function pinterest() {
           if (!response || response.error) {
             alert('Error occurred');
           } else {
-            // pins = pins.concat(response.data);
+            pins = pins.concat(response.data);
             // var output = document.getElementById('output');
             // document.getElementById('show').innerHTML = pinsDelete; // Display pins
             if (response.hasNext) {
               response.next();
             }
           }
+          // Display board
+          var newBoard = "\"" + "https://www.pinterest.com/" + user_id + "/" + board_id + "/" + "\"";
+          document.getElementById("board").href = newBoard;
       });
     }
     document.getElementById('show').innerHTML = 'Duplicate pins deleted. Check your Pinterest board!';

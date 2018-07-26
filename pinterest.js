@@ -39,8 +39,8 @@ function pinterest() {
 
           // Display board
           document.getElementById("board").href = response.data.url;
-      }
-      
+      });
+
       PDK.request('/boards/'+ user_id +'/'+ board_id +'/pins/', { fields: 'note,image[small],url' }, function (response) {  // Get board information
         console.log("Here is the the list of data of the pins from the board: ");
         console.log(response);

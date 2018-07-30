@@ -22,17 +22,18 @@ function pinterest() {
       document.getElementById('show').innerHTML = 'You are not connected. Please try again.';
     } else {
 
-      PDK.me({ fields: 'username' }, function(response) { // Get user information
-        console.log("Here is the the list of data of the pins from the board: ");
+      var user_id;
+      PDK.request('/v1/me/', { fields: 'username' }, function(response) { // Get user information
+        console.log("Here is the user information: ");
         console.log(response);
-        var user_id = response.data.username;
+        user_id = response.data.username;
       });
       document.getElementById('show').innerHTML = 'You are connected! We will now begin the process of deleting duplicate pins.';
 
       // Ask user for which board user wants to search
-      // var user_id = prompt("Please enter your username below");
       var board_id = prompt("Which board do you want to search?");
       var pins = [];
+      var pinsDelete = [];
 
       PDK.request('/boards/'+ user_id +'/'+ board_id +'/', { fields: 'id,name,url' }, function (response) {  // Get board information
           console.log("Here is information about the board: ");

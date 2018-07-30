@@ -21,15 +21,16 @@ function pinterest() {
     if (response.error || !response) {
       document.getElementById('show').innerHTML = 'You are not connected. Please try again.';
     } else {
-      document.getElementById('show').innerHTML = 'You are connected! We will now begin the process of deleting duplicate pins.';
 
       PDK.me({ fields: 'username' }, function(response) { // Get user information
         console.log("Here is the the list of data of the pins from the board: ");
         console.log(response);
+        var user_id = response.data.username;
       });
+      document.getElementById('show').innerHTML = 'You are connected! We will now begin the process of deleting duplicate pins.';
 
       // Ask user for which board user wants to search
-      var user_id = prompt("Please enter your username below");
+      // var user_id = prompt("Please enter your username below");
       var board_id = prompt("Which board do you want to search?");
       var pins = [];
 
